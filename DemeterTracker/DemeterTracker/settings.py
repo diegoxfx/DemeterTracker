@@ -25,7 +25,7 @@ SECRET_KEY = 'j3x1=rys8#nfd0^kv0desmlxce89p2l(vz&^j8du=%c!^qkrz3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', 'dcifuen3.dis.eafit.edu.co', 'www.dcifuen3.dis.eafit.edu.co', '10.131.138.228', '127.0.0.1']
 
 
 # Application definition
@@ -120,5 +120,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "sfiles"), )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
+ADMIN_MEDIA_PREFIX = '/media/admin/'
+
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
