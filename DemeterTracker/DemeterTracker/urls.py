@@ -25,6 +25,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('registration/', webapp_views.signup, name='signup'),
     path('events/new_event', webapp_views.new_event, name='new_event'),
+    path('events/list_events', webapp_views.list_events, name='list_events'),
     path('api/login', api_views.login),
     path('api/new_event', api_views.new_event)
 ]

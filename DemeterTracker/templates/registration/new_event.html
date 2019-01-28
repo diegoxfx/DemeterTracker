@@ -1,21 +1,13 @@
+<!-- templates/registration/new_event.html -->
 {% extends 'base.html' %}
+
+{% block title %}New Event{% endblock %}
 
 {% block content %}
 <h2>New Event</h2>
 <form method="post">
   {% csrf_token %}
-  {% for field in formset %}
-  <p>
-    {{ field.label_tag }}<br>
-    {{ field }}
-    {% if field.help_text %}
-    <small style="color: grey">{{ field.help_text }}</small>
-    {% endif %}
-    {% for error in field.errors %}
-  <p style="color: red">{{ error }}</p>
-  {% endfor %}
-  </p>
-  {% endfor %}
+  {{ formset.as_p }}
   <button type="submit">Submit</button>
   <a href="{% url 'home' %}">go back</a>
 </form>
