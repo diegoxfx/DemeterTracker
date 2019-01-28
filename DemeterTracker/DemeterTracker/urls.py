@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
-from registration import views
+from webapp import views as webapp_views
+from api import views as api_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('registration/', views.signup, name='signup'),
+    path('registration/', webapp_views.signup, name='signup'),
+    path('events/new_event', webapp_views.new_event, name='new_event'),
+    path('api/login', api_views.login),
+    path('api/new_event', api_views.new_event)
 ]

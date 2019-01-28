@@ -25,7 +25,7 @@ SECRET_KEY = 'j3x1=rys8#nfd0^kv0desmlxce89p2l(vz&^j8du=%c!^qkrz3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'dcifuen3.dis.eafit.edu.co', 'www.dcifuen3.dis.eafit.edu.co', '10.131.138.228', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'registration'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'webapp',
+    'api',
+    'models'
 ]
 
 MIDDLEWARE = [
@@ -100,6 +104,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}
 
 
 # Internationalization
