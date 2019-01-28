@@ -54,6 +54,6 @@ def new_event(request):
         return Response({'error': 'Please provide date'},
                        status=HTTP_400_BAD_REQUEST)
 
-    event = model.Event.objects.create_event(user, latitude, longitude, hour, date)
+    event = models.Event.objects.create_event(user, latitude, longitude, hour, date)
     event.save()
     return Response('event created successfully', status=HTTP_200_OK)

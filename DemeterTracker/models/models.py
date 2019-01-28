@@ -4,13 +4,17 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Event(models.Model):
+
+class EventManager(models.Manager):
     def create_event(self, user, latitude, longitude, hour, date):
-        event = self.create(user=user, latitude=latitude, hour=hour, date=date)
+        event = self.create(user=user, latitude=latitude, longitude=longitude, hour=hour, date=date)
         return event
-    
+
+class Event(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     latitude = models.IntegerField()
     longitude = models.IntegerField()
     hour = models.TimeField()
     date = models.DateField()
+
+    objects = EventManager()
