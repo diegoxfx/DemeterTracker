@@ -1,6 +1,8 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib.gis.geoip2 import GeoIP2
+from ipware import get_client_ip
 from models import models
 from models import forms
 from models import tables
@@ -20,15 +22,23 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 
-def new_event(request):
-    if request.method == 'POST':
-        form = forms.EventFormSet(request.POST, instance=request.user)
-        if form.is_valid():
-            event = form.save()
-            return redirect('home')
-    else:
-        form = forms.EventFormSet()
-        return render(request, 'registration/new_event.html', {'formset': form})     
+def start_tracking(request):
+    #route = models.Route()
+    #request.session['route'] = route
+    ip, is_routable = get_client_ip(request)
+    print(ip)
+    #g = GeoIP()
+    request.session['is_tracking'] = True
+    return render(request, 'location.html')
+    #return redirect('confirm')
+
+def stop_tracking(request):
+    request.session['is_tracking'] = False
+    return redirect('confirm')
+
+
+def confirm(request):
+    return render(request, 'home.html', {'is_tracking': request.session['is_tracking']})
 
 
 def list_events(request):

@@ -6,8 +6,17 @@
 {% block content %}
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
-<p><a href="{% url 'new_event' %}"> new event</a> /
-<a href="{% url 'list_events' %}"> last events</a> /
+{% if not is_tracking %}
+<form action='events/start_tracking' method='GET'>
+  <button type='action'> start tracking</button>
+  </form>
+{% else %}
+<form action='events/stop_tracking' method='GET'>
+  <button type='action'> stop tracking</button>
+  </form>
+{% endif %}
+<p>
+<a href="{% url 'list_events' %}"> last routes</a> /
 <a href="{% url 'logout' %}">logout</a></p>
 {% else %}
 <p>You are not logged in</p>

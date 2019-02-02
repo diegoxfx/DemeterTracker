@@ -18,3 +18,13 @@ class Event(models.Model):
     date = models.DateField()
 
     objects = EventManager()
+
+
+class Route(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    hour = models.TimeField()
+    date = models.DateField()
+
+    objects = EventManager()

@@ -1,4 +1,8 @@
-Django==2.1.5
+Django==2.0.10
 gunicorn==19.9.0
 djangorestframework==3.9.1
 django-tables2==2.0.4
+django-google-maps==0.10.1
+django-ipware==2.1.0
+django-geoip==0.5.2.1
+geoip2==2.9.0
