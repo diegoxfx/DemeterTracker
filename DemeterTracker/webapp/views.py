@@ -29,8 +29,8 @@ def start_tracking(request):
     print(ip)
     #g = GeoIP()
     request.session['is_tracking'] = True
-    return render(request, 'location.html')
-    #return redirect('confirm')
+    #return render(request, 'location.html')
+    return redirect('confirm')
 
 def stop_tracking(request):
     request.session['is_tracking'] = False
@@ -38,7 +38,8 @@ def stop_tracking(request):
 
 
 def confirm(request):
-    return render(request, 'home.html', {'is_tracking': request.session['is_tracking']})
+    ip, is_routable = get_client_ip(request)
+    return render(request, 'home.html', {'is_tracking': request.session['is_tracking'], 'ip': ip})
 
 
 def list_events(request):

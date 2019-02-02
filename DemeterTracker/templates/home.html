@@ -9,6 +9,7 @@ Hi {{ user.username }}!
 {% if not is_tracking %}
 <form action='events/start_tracking' method='GET'>
   <button type='action'> start tracking</button>
+  <a> ip: {{ ip }} </a>
   </form>
 {% else %}
 <form action='events/stop_tracking' method='GET'>
