@@ -6,22 +6,17 @@
 {% block content %}
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
-{% if not is_tracking %}
-<form action='events/start_tracking' method='GET'>
-  <button type='action'> start tracking</button>
-  <a> ip: {{ ip }} </a>
-  </form>
-{% else %}
-<form action='events/stop_tracking' method='GET'>
-  <button type='action'> stop tracking</button>
-  </form>
-{% endif %}
 <p>
-<a href="{% url 'list_events' %}"> last routes</a> /
-<a href="{% url 'logout' %}">logout</a></p>
+  <a href="{% url 'create_route' %}">create route<a/> /
+    <a href="{% url 'route_list' %}"> draw route</a> /
+    <a href="{% url 'logout' %}">logout</a></p>
+<div id="out"></div>
 {% else %}
 <p>You are not logged in</p>
 <a href="{% url 'login' %}">login</a> /
 <a href="{% url 'signup' %}">signup</a>
 {% endif %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% load staticfiles %}
+<script src="{% static 'tracking/tracker.js' %}"> </script>
 {% endblock %}

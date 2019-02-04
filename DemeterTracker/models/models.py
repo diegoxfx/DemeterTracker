@@ -4,26 +4,29 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class RouteManager(models.Manager):
+    def create_route(self, user ,name):
+        route = self.create(user=user, name=name)
+        return route
+
 
 class EventManager(models.Manager):
-    def create_event(self, user, latitude, longitude, hour, date):
-        event = self.create(user=user, latitude=latitude, longitude=longitude, hour=hour, date=date)
+    def create_event(self, route, latitude, longitude, hour, date):
+        event = self.create(route=route, latitude=latitude,
+                            longitude=longitude, hour=hour, date=date)
         return event
-
-class Event(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-    latitude = models.IntegerField()
-    longitude = models.IntegerField()
-    hour = models.TimeField()
-    date = models.DateField()
-
-    objects = EventManager()
 
 
 class Route(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    name = models.CharField(max_length=255)
+
+    objects = RouteManager()
+
+class GeoEvent(models.Model):
+    route = models.ForeignKey(Route, on_delete=models.PROTECT)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     hour = models.TimeField()
     date = models.DateField()
 

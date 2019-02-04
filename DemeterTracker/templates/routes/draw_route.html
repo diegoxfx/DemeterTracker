@@ -1,0 +1,27 @@
+{% block content %}
+<h2>Draw Route</h2>
+{% csrf_token %}
+{{ form.as_p }}
+<p>
+  <button id="draw" onClick="draw_route()">draw</button>
+</p>
+<a href="{% url 'home' %}">go back</a>
+
+<style>
+  /* Always set the map height explicitly to define the size of the div
+  * element that contains the map. */
+  #map {
+  height: 100%;
+  }
+</style>
+
+
+<div id="map"></div>
+
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqlcwspJi4ppWXp2goSMXZYsc_B7M-jBA&callback=draw_route">
+      </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% load staticfiles %}
+<script src="{% static 'tracking/draw_route.js' %}"> </script>
+{% endblock %}

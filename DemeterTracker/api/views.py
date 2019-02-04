@@ -32,11 +32,15 @@ def login(request):
 @csrf_exempt
 @api_view(["POST"])
 def new_event(request):
-    user = request.user
+    route_id = request.data.get("route_id")
     latitude = request.data.get("latitude")
     longitude = request.data.get("longitude")
     hour = request.data.get("hour")
     date = request.data.get("date")
+
+    if route_id is None:
+        return Response({'error': 'Please provide route id'},
+                        status=HTTP_400_BAD_REQUEST)
 
     if latitude is None:
         return Response({'error': 'Please provide latitude'},
@@ -54,6 +58,41 @@ def new_event(request):
         return Response({'error': 'Please provide date'},
                        status=HTTP_400_BAD_REQUEST)
 
-    event = models.Event.objects.create_event(user, latitude, longitude, hour, date)
+    route = models.Route.objects.get(id=route_id)
+
+    event = models.GeoEvent.objects.create_event(route, latitude, longitude,
+                                              hour, date)
     event.save()
     return Response('event created successfully', status=HTTP_200_OK)
+
+@csrf_exempt
+@api_view(["POST"])
+def new_route(request):
+    user = request.user
+    name = request.data.get("name")
+
+    if name is None:
+        return Response({'error': 'Please provide a name'},
+                        status=HTTP_400_BAD_REQUEST)
+
+    route = models.Route.objects.create_route(user, name)
+    route.save()
+    return Response({'id': route.id}, status=HTTP_200_OK)
+
+@csrf_exempt
+@api_view(["POST"])
+def route_events(request):
+    route_id = request.data.get("id")
+    route = models.Route.objects.get(id=route_id)
+
+    if route_id is None:
+        return Response({'error': 'Please provide an id'},
+                        status=HTTP_400_BAD_REQUEST)
+
+    events = models.GeoEvent.objects.filter(route=route).all()
+    events_coords = []
+
+    for event in events:
+        coords = {'lat': event.latitude, 'lng': event.longitude}
+        events_coords.append(coords)
+    return Response(events_coords, status=HTTP_200_OK)

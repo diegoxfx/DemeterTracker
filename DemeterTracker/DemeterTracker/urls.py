@@ -28,6 +28,10 @@ urlpatterns = [
     path('events/stop_tracking', webapp_views.stop_tracking, name='stop_tracking'),
     path('events/list_events', webapp_views.list_events, name='list_events'),
     path('confirm', webapp_views.confirm, name='confirm'),
+    path('events/new_route', webapp_views.create_route, name='create_route'),
+    path('events/list_routes', webapp_views.list_routes, name='route_list'),
     path('api/login', api_views.login),
-    path('api/new_event', api_views.new_event)
+    path('api/new_event', api_views.new_event),
+    path('api/new_route', api_views.new_route),
+    path('api/get_events', api_views.route_events)
 ]

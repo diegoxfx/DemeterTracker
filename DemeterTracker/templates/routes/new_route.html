@@ -1,0 +1,15 @@
+{% block content %}
+<h2>Create Route</h2>
+<!-- <form method="post"> -->
+  {% csrf_token %}
+  {{ formset.as_p }}
+  <button id="event_track" onclick="manage_track_event(this.id) ">
+    create and track</button>
+  <a href="{% url 'home' %}">go back</a>
+<!-- </form> -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% load staticfiles %}
+<script src="{% static 'tracking/tracker.js' %}"> </script>
+
+{% endblock %}

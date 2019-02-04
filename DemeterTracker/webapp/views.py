@@ -2,6 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.gis.geoip2 import GeoIP2
+from rest_framework.authtoken.models import Token
 from ipware import get_client_ip
 from models import models
 from models import forms
@@ -39,7 +40,17 @@ def stop_tracking(request):
 
 def confirm(request):
     ip, is_routable = get_client_ip(request)
-    return render(request, 'home.html', {'is_tracking': request.session['is_tracking'], 'ip': ip})
+    token, _ = Token.objects.get_or_create(user=request.user)
+    return render(request, 'home.html', {'is_tracking': request.session['is_tracking'], 'ip': token})
+
+def create_route(request):
+    form = forms.RouteFormSet()
+    return render(request, 'routes/new_route.html', {'formset': form})
+
+
+def list_routes(request):
+    form = forms.RouteList
+    return render(request, 'routes/draw_route.html', {'form': form})
 
 
 def list_events(request):
