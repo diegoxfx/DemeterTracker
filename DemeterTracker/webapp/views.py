@@ -1,9 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.contrib.gis.geoip2 import GeoIP2
 from rest_framework.authtoken.models import Token
-from ipware import get_client_ip
 from models import models
 from models import forms
 from models import tables
@@ -22,26 +20,6 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
 
-
-def start_tracking(request):
-    #route = models.Route()
-    #request.session['route'] = route
-    ip, is_routable = get_client_ip(request)
-    print(ip)
-    #g = GeoIP()
-    request.session['is_tracking'] = True
-    #return render(request, 'location.html')
-    return redirect('confirm')
-
-def stop_tracking(request):
-    request.session['is_tracking'] = False
-    return redirect('confirm')
-
-
-def confirm(request):
-    ip, is_routable = get_client_ip(request)
-    token, _ = Token.objects.get_or_create(user=request.user)
-    return render(request, 'home.html', {'is_tracking': request.session['is_tracking'], 'ip': token})
 
 def create_route(request):
     form = forms.RouteFormSet()
