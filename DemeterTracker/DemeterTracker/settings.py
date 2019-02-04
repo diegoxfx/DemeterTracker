@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.gis.geoip2',
-    'ipware',
     'rest_framework',
     'rest_framework.authtoken',
     'django_tables2',
