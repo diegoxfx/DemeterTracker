@@ -7,15 +7,22 @@
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
 <p>
-  <a href="{% url 'create_route' %}">create route<a/> /
+  <a href="{% url 'create_route' %}">create route</a> /
     <a href="{% url 'route_list' %}"> draw route</a> /
-    <a href="{% url 'logout' %}">logout</a></p>
+    <a href="{% url 'logout' %}"; onclick="clear_session()">logout</a></p>
 <div id="out"></div>
 {% else %}
-<p>You are not logged in</p>
+<p>You are not logged in!!!!!!</p>
 <a href="{% url 'login' %}">login</a> /
 <a href="{% url 'signup' %}">signup</a>
 {% endif %}
+<script>
+  function clear_session()
+  {
+  sessionStorage.clear();
+  console.log("session cleared");
+  }
+</script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 {% load staticfiles %}
 <script src="{% static 'tracking/tracker.js' %}"> </script>
