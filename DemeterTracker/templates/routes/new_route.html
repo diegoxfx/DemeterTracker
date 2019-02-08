@@ -6,10 +6,26 @@
   <button id="event_track" onclick="manage_track_event(this.id) ">
     create and track</button>
   <a href="{% url 'home' %}">go back</a>
-<!-- </form> -->
+  <!-- </form> -->
+
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+    * element that contains the map. */
+    #map {
+    height: 100%;
+    }
+  </style>
+
+
+  <div id="map"></div>
+
+  <script async defer
+	  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqlcwspJi4ppWXp2goSMXZYsc_B7M-jBA&callback=draw_route_from_id">
+  </script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 {% load staticfiles %}
+<script src="{% static 'tracking/draw_route.js' %}"> </script>
 <script src="{% static 'tracking/tracker.js' %}"> </script>
 
 {% endblock %}

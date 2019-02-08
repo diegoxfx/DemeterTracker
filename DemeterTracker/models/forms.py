@@ -10,6 +10,3 @@ RouteFormSet = inlineformset_factory(User, models.Route,
 class ModelChoiceRoute(ModelChoiceField):
     def label_from_instance(self, obj):
                 return obj.name
-
-class RouteList(Form):
-    routes = ModelChoiceRoute(queryset = models.Route.objects.all(), initial=0)

@@ -1,0 +1,21 @@
+function draw_route() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+	zoom: 3,
+	center: {lat: 0, lng: -180},
+	mapTypeId: 'terrain'
+    });
+    
+    var coords = [
+	{lat: 3, lng: 4}
+    ];
+    
+    var route_path = new google.maps.Polyline({
+	path: coords,
+	geodesic: true,
+	strokeColor: '#FF0000',
+	strokeOpacity: 1.0,
+	strokeWeight: 2
+    });
+    
+    route_path.setMap(map);
+}

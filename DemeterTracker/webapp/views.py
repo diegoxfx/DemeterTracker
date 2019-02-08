@@ -2,6 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from rest_framework.authtoken.models import Token
+from django.forms import Form
 from models import models
 from models import forms
 from models import tables
@@ -14,7 +15,7 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            #login(request, user)
             return redirect('home')
     else:
         form = UserCreationForm()
@@ -27,8 +28,11 @@ def create_route(request):
 
 
 def list_routes(request):
-    form = forms.RouteList
-    return render(request, 'routes/draw_route.html', {'form': form})
+    class RouteList(Form):
+        routes = forms.ModelChoiceRoute(queryset =
+            models.Route.objects.filter(user=request.user).all(), initial=0)
+    route_form = RouteList
+    return render(request, 'routes/draw_route.html', {'form': route_form})
 
 
 def list_events(request):

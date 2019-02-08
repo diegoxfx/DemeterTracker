@@ -22,6 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'j3x1=rys8#nfd0^kv0desmlxce89p2l(vz&^j8du=%c!^qkrz3'
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

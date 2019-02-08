@@ -1,0 +1,83 @@
+var thread;
+
+function get_location() {
+    var output = document.getElementById("out");
+
+    if(!navigator.geolocation) {
+	output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+	return;
+    }
+
+    function success(position) {
+	var latitude = position.coords.latitude;
+	var longitude = position.coords.longitude;
+
+	var current_date = new Date();
+
+	function get_date() {
+	    var now = new Date();
+	    var y = now.getFullYear();
+	    var m = now.getMonth() + 1;
+	    var d = now.getDate();
+	    return '' + y + '-' + (m < 10 ? '0' : '') + m + '-' +
+		(d < 10 ? '0' : '') + d;
+	}
+
+	function get_time() {
+	    var now = new Date();
+	    var h = now.getHours();
+	    var m = now.getMinutes();
+	    var s = now.getSeconds();
+	    return '' + (h < 10 ? '0' : '') + h + ':' + (m < 10? '0': '')
+		+ m + ':' + (s < 10 ? '0' : '') + s;
+	}
+
+	var date = get_date();
+	var time = get_time();
+
+	var post_url = document.location.origin + '/api/new_event';
+	console.log("latitude: ", latitude);
+	console.log("longitude: ", longitude);
+	console.log("hour: ", time);
+	console.log("date: ", date);
+
+    }
+
+    function error() {
+	output.innerHTML = "Unable to retrieve your location";
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error);
+}
+
+
+function draw_route() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+	zoom: 3,
+	center: {lat: 0, lng: -180},
+	mapTypeId: 'terrain'
+    });
+    
+    var coords = [
+	{lat: 3, lng: 4}
+    ];
+    
+    var route_path = new google.maps.Polyline({
+	path: coords,
+	geodesic: true,
+	strokeColor: '#FF0000',
+	strokeOpacity: 1.0,
+	strokeWeight: 2
+    });
+    
+    route_path.setMap(map);
+}
+
+
+function start_tracking() {
+    thread = setInterval(get_location, 1000);
+}
+
+function stop_tracking() {
+    clearInterval(thread);
+}
