@@ -8,8 +8,8 @@
 Hi {{ user.username }}!
 <p>
   <a href="{% url 'create_route' %}">create route</a> /
-    <a href="{% url 'route_list' %}"> draw route</a> /
-    <a href="{% url 'logout' %}"; onclick="clear_session()">logout</a></p>
+  <a href="{% url 'route_list' %}"> draw route</a> /
+  <a href="{% url 'logout' %}"; onclick="clear_session()">logout</a></p>
 <div id="out"></div>
 {% else %}
 <p>You are not logged in!!!!!!</p>
