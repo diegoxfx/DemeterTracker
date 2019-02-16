@@ -1,20 +1,17 @@
-FROM python:3.5
+FROM python:3.6.4-onbuild
 
+ENV PROJECT_ROOT /usr/src/app
 
-WORKDIR /DemeterTracker
-COPY . ./
+COPY start.sh /start.sh
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-
+# EXPOSE port 8000 to allow communication to/from server
 EXPOSE 8000
 
+# CMD specifcies the command to execute to start the server running.
+CMD ["/start.sh", "-docker"]
+# done!
 
-WORKDIR ./DemeterTracker
-RUN yes yes | python manage.py collectstatic
-RUN python manage.py makemigrations
-RUN python manage.py migrate
 
-WORKDIR /DemeterTracker
 
-CMD ["gunicorn", "--chdir", "DemeterTracker", "--bind", ":8000", "DemeterTracker.wsgi:application"]
+
+
